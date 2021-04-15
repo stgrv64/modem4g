@@ -1,0 +1,13 @@
+[/dev/cdc-wdm2] Device capabilities retrieved:
+	      Device type: 'remote'
+	   Cellular class: 'gsm'
+	      Voice class: 'no-voice'
+	        SIM class: 'removable'
+	       Data class: 'umts, hsdpa, hsupa, lte'
+	         SMS caps: 'pdu-receive, pdu-send'
+	        Ctrl caps: 'reg-manual'
+	     Max sessions: '8'
+	Custom data class: 'unknown'
+	        Device ID: '354479085366977'
+	    Firmware info: 'SWI9X30C_02.24.05.06'
+	    Hardware info: 'EM7455B'

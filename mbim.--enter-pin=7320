@@ -1,0 +1,6 @@
+[/dev/cdc-wdm2] PIN operation successful
+
+[/dev/cdc-wdm2] PIN info:
+	         PIN state: 'locked'
+	          PIN type: 'pin2'
+	Remaining attempts: '3'

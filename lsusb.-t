@@ -1,0 +1,2 @@
+    |__ Port 4: Dev 7, If 13, Class=CDC Data, Driver=cdc_mbim, 480M
+    |__ Port 4: Dev 7, If 12, Class=Communications, Driver=cdc_mbim, 480M
