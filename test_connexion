@@ -1,0 +1,1018 @@
+[/dev/cdc-wdm0] Radio state retrieved:
+	     Hardware Radio State: 'on'
+	     Software Radio State: 'on'
+[/dev/cdc-wdm0] Pin Info:
+	         Pin State: 'locked'
+	           PinType: 'pin1'
+	Remaining attempts: '3'
+[/dev/cdc-wdm0] Device capabilities retrieved:
+	      Device type: 'remote'
+	   Cellular class: 'gsm'
+	      Voice class: 'no-voice'
+	        Sim class: 'removable'
+	       Data class: 'umts, hsdpa, hsupa, lte'
+	         SMS caps: 'pdu-receive, pdu-send'
+	        Ctrl caps: 'reg-manual'
+	     Max sessions: '8'
+	Custom data class: 'unknown'
+	        Device ID: '354479085366977'
+	    Firmware info: 'SWI9X30C_02.24.05.06'
+	    Hardware info: 'EM7455B'
+
+stef@astrokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-visible-providers
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+error: operation failed: NotInitialized
+
+stef@astrokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --enter-pin=7320
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+[/dev/cdc-wdm0] PIN operation successful
+
+[/dev/cdc-wdm0] Pin Info:
+	         Pin State: 'locked'
+	           PinType: 'pin2'
+	Remaining attempts: '3'
+
+
+strokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-home-provider 
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+[/dev/cdc-wdm0] Home provider:
+	   Provider ID: '20810'
+	 Provider Name: 'F SFR'
+	         State: 'home'
+	Cellular class: 'gsm'
+	          RSSI: '99'
+	    Error rate: '99'
+
+stef@astrokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-device-caps 
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+[/dev/cdc-wdm0] Device capabilities retrieved:
+	      Device type: 'remote'
+	   Cellular class: 'gsm'
+	      Voice class: 'no-voice'
+	        Sim class: 'removable'
+	       Data class: 'umts, hsdpa, hsupa, lte'
+	         SMS caps: 'pdu-receive, pdu-send'
+	        Ctrl caps: 'reg-manual'
+	     Max sessions: '8'
+	Custom data class: 'unknown'
+	        Device ID: '354479085366977'
+	    Firmware info: 'SWI9X30C_02.24.05.06'
+	    Hardware info: 'EM7455B'
+
+stef@astrokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --attach-packet-service
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+error: operation failed: ProviderNotVisible
+
+
+t@astrokit-4:/home/stef/git/modem4g# cat /etc/mbim-network.conf
+APN=sl2sfr
+APN_USER=
+APN_PASS=
+APN_AUTH=
+PROXY=yes
+
+=> BUG ???
+
+
+stef@astrokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-visible-providers
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+[/dev/cdc-wdm0] Visible providers (3):
+	Provider [0]:
+		    Provider ID: '20815'
+		  Provider Name: 'Free'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [1]:
+		    Provider ID: '20801'
+		  Provider Name: 'Orange F'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [2]:
+		    Provider ID: '20820'
+		  Provider Name: 'F-Bouygues Telecom'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+stef@astrokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-home-provider
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+[/dev/cdc-wdm0] Home provider:
+	   Provider ID: '20810'
+	 Provider Name: 'F SFR'
+	         State: 'home'
+	Cellular class: 'gsm'
+	          RSSI: '99'
+	    Error rate: '99'
+stef@astrokit-4:~/git/modem4g $ sudo mbimcli --device=/dev/cdc-wdm0 -p --attach-packet-service
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+error: operation failed: ProviderNotVisible
+
+[/dev/cdc-wdm0] Successfully attached to packet service
+
+[/dev/cdc-wdm0] Packet service status:
+	         Network error: 'unknown'
+	  Packet service state: 'attached'
+	Available data classes: 'hsdpa, hsupa'
+	          Uplink speed: '5742000 bps'
+	        Downlink speed: '42200000 bps'
+[/dev/cdc-wdm0] Successfully connected
+
+[/dev/cdc-wdm0] Connection status:
+	      Session ID: '0'
+	Activation state: 'activated'
+	Voice call state: 'none'
+	         IP type: 'ipv4v6'
+	    Context type: 'internet'
+	   Network error: 'unknown'
+
+[/dev/cdc-wdm0] IPv4 configuration available: 'address, gateway, dns, mtu'
+     IP [0]: '10.240.92.17/30'
+    Gateway: '10.240.92.18'
+    DNS [0]: '192.168.10.110'
+        MTU: '1428'
+
+[/dev/cdc-wdm0] IPv6 configuration available: 'address, gateway, dns, mtu'
+     IP [0]: '2a01:cb1a:70:51d:218f:53a4:50c4:3953/64'
+    Gateway: '2a01:cb1a:70:51d:51d0:bf31:ef28:6e88'
+    DNS [0]: '2a01:cd00:7fff:0:192:168:10:110'
+        MTU: '1428'
+
+[/dev/cdc-wdm0] Home provider:
+	   Provider ID: '20801'
+	 Provider Name: 'Orange F'
+	         State: 'home'
+	Cellular class: 'gsm'
+	          RSSI: '99'
+	    Error rate: '99'
+[/dev/cdc-wdm0] Radio state retrieved:
+	     Hardware Radio State: 'on'
+	     Software Radio State: 'on'
+[/dev/cdc-wdm0] Registration status:
+	         Network error: 'unknown'
+	        Register state: 'home'
+	         Register mode: 'automatic'
+	Available data classes: 'umts, hsdpa, hsupa'
+	Current cellular class: 'gsm'
+	           Provider ID: '20801'
+	         Provider name: 'Orange F'
+	          Roaming text: 'unknown'
+	    Registration flags: 'packet-service-automatic-attach'
+[/dev/cdc-wdm0] Signal state:
+	          RSSI [0-31,99]: '5'
+	     Error rate [0-7,99]: '99'
+	Signal strength interval: '5'
+	          RSSI threshold: '2'
+	    Error rate threshold: 'unspecified'
+[/dev/cdc-wdm0] Subscriber ready status retrieved:
+	      Ready state: 'initialized'
+	    Subscriber ID: '208012500275708'
+	        SIM ICCID: '89330110410771226740'
+	       Ready info: 'unknown'
+	Telephone numbers: (1) '+33788179336'
+[/dev/cdc-wdm0] Visible providers (3):
+	Provider [0]:
+		    Provider ID: '20801'
+		  Provider Name: 'Orange F'
+		          State: 'home, preferred, visible, registered'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [1]:
+		    Provider ID: '20815'
+		  Provider Name: 'Free'
+		          State: 'visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [2]:
+		    Provider ID: '20820'
+		  Provider Name: 'F-Bouygues Telecom'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+[/dev/cdc-wdm0] Preferred providers (77):
+	Provider [0]:
+		    Provider ID: '21401'
+		  Provider Name: 'vodafone ES'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [1]:
+		    Provider ID: '21406'
+		  Provider Name: '214 06'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [2]:
+		    Provider ID: '21404'
+		  Provider Name: 'YOIGO'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [3]:
+		    Provider ID: '21407'
+		  Provider Name: 'Movistar'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [4]:
+		    Provider ID: '21499'
+		  Provider Name: '214 99'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [5]:
+		    Provider ID: '21405'
+		  Provider Name: '214 05'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [6]:
+		    Provider ID: '22801'
+		  Provider Name: 'Swisscom'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [7]:
+		    Provider ID: '60401'
+		  Provider Name: 'MOR IAM'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [8]:
+		    Provider ID: '26801'
+		  Provider Name: 'vodafone P'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [9]:
+		    Provider ID: '20404'
+		  Provider Name: 'vodafone NL'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [10]:
+		    Provider ID: '28602'
+		  Provider Name: 'Vodafone T rkiye'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [11]:
+		    Provider ID: '20205'
+		  Provider Name: 'vodafone GR'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [12]:
+		    Provider ID: '26001'
+		  Provider Name: 'Plus'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [13]:
+		    Provider ID: '23201'
+		  Provider Name: 'A1'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [14]:
+		    Provider ID: '302720'
+		  Provider Name: 'Rogers Wireless'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [15]:
+		    Provider ID: '22601'
+		  Provider Name: 'RO Vodafone RO'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [16]:
+		    Provider ID: '60202'
+		  Provider Name: 'vodafone EG'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [17]:
+		    Provider ID: '42501'
+		  Provider Name: 'Partner IL'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [18]:
+		    Provider ID: '27201'
+		  Provider Name: 'vodafone IE'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [19]:
+		    Provider ID: '23003'
+		  Provider Name: 'Vodafone CZ'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [20]:
+		    Provider ID: '25001'
+		  Provider Name: 'MTS RUS'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [21]:
+		    Provider ID: '24008'
+		  Provider Name: 'Telenor SE'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [22]:
+		    Provider ID: '60802'
+		  Provider Name: 'SN-SENTEL SG'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [23]:
+		    Provider ID: '21670'
+		  Provider Name: 'vodafone HU'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [24]:
+		    Provider ID: '40420'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [25]:
+		    Provider ID: '40411'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [26]:
+		    Provider ID: '40427'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [27]:
+		    Provider ID: '40405'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [28]:
+		    Provider ID: '21910'
+		  Provider Name: 'HR VIP'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [29]:
+		    Provider ID: '23801'
+		  Provider Name: 'TDC'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [30]:
+		    Provider ID: '65501'
+		  Provider Name: 'VodaCom-SA'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [31]:
+		    Provider ID: '24201'
+		  Provider Name: 'N Telenor'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [32]:
+		    Provider ID: '28401'
+		  Provider Name: 'Mtel'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [33]:
+		    Provider ID: '24405'
+		  Provider Name: 'FI elisa'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [34]:
+		    Provider ID: '45406'
+		  Provider Name: 'SmarTone HK'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [35]:
+		    Provider ID: '50503'
+		  Provider Name: 'vodafone AU'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [36]:
+		    Provider ID: '52503'
+		  Provider Name: 'SGP-M1'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [37]:
+		    Provider ID: '22005'
+		  Provider Name: 'Vip SRB'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [38]:
+		    Provider ID: '25501'
+		  Provider Name: 'VODAFONE'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [39]:
+		    Provider ID: '27801'
+		  Provider Name: 'vodafone MT'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [40]:
+		    Provider ID: '21401'
+		  Provider Name: 'vodafone ES'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [41]:
+		    Provider ID: '21406'
+		  Provider Name: '214 06'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [42]:
+		    Provider ID: '21404'
+		  Provider Name: 'YOIGO'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [43]:
+		    Provider ID: '21407'
+		  Provider Name: 'Movistar'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [44]:
+		    Provider ID: '21499'
+		  Provider Name: '214 99'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [45]:
+		    Provider ID: '21405'
+		  Provider Name: '214 05'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [46]:
+		    Provider ID: '22801'
+		  Provider Name: 'Swisscom'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [47]:
+		    Provider ID: '60401'
+		  Provider Name: 'MOR IAM'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [48]:
+		    Provider ID: '26801'
+		  Provider Name: 'vodafone P'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [49]:
+		    Provider ID: '20404'
+		  Provider Name: 'vodafone NL'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [50]:
+		    Provider ID: '28602'
+		  Provider Name: 'Vodafone T rkiye'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [51]:
+		    Provider ID: '20205'
+		  Provider Name: 'vodafone GR'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [52]:
+		    Provider ID: '26001'
+		  Provider Name: 'Plus'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [53]:
+		    Provider ID: '23201'
+		  Provider Name: 'A1'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [54]:
+		    Provider ID: '302720'
+		  Provider Name: 'Rogers Wireless'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [55]:
+		    Provider ID: '22601'
+		  Provider Name: 'RO Vodafone RO'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [56]:
+		    Provider ID: '60202'
+		  Provider Name: 'vodafone EG'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [57]:
+		    Provider ID: '42501'
+		  Provider Name: 'Partner IL'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [58]:
+		    Provider ID: '27201'
+		  Provider Name: 'vodafone IE'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [59]:
+		    Provider ID: '23003'
+		  Provider Name: 'Vodafone CZ'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [60]:
+		    Provider ID: '25001'
+		  Provider Name: 'MTS RUS'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [61]:
+		    Provider ID: '24008'
+		  Provider Name: 'Telenor SE'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [62]:
+		    Provider ID: '60802'
+		  Provider Name: 'SN-SENTEL SG'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [63]:
+		    Provider ID: '21670'
+		  Provider Name: 'vodafone HU'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [64]:
+		    Provider ID: '40420'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [65]:
+		    Provider ID: '40411'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [66]:
+		    Provider ID: '40427'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [67]:
+		    Provider ID: '40405'
+		  Provider Name: 'Vodafone IN'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [68]:
+		    Provider ID: '21910'
+		  Provider Name: 'HR VIP'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [69]:
+		    Provider ID: '23801'
+		  Provider Name: 'TDC'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [70]:
+		    Provider ID: '65501'
+		  Provider Name: 'VodaCom-SA'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [71]:
+		    Provider ID: '24201'
+		  Provider Name: 'N Telenor'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [72]:
+		    Provider ID: '28401'
+		  Provider Name: 'Mtel'
+		          State: 'preferred'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [73]:
+		    Provider ID: '20815'
+		  Provider Name: 'Free'
+		          State: 'forbidden'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [74]:
+		    Provider ID: '20801'
+		  Provider Name: 'Orange F'
+		          State: 'forbidden'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [75]:
+		    Provider ID: '20820'
+		  Provider Name: 'F-Bouygues Telecom'
+		          State: 'forbidden'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [76]:
+		    Provider ID: '20816'
+		  Provider Name: '208 16'
+		          State: 'forbidden'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+[/dev/cdc-wdm0] Signal state:
+	          RSSI [0-31,99]: '99'
+	     Error rate [0-7,99]: '99'
+	Signal strength interval: '5'
+	          RSSI threshold: '2'
+	    Error rate threshold: 'unspecified'
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+/usr/bin/mbim-network: 138: /usr/bin/mbim-network: [[: not found
+/usr/bin/mbim-network: 138: /usr/bin/mbim-network: [[: not found
+Loading profile at /etc/mbim-network.conf...
+    APN: orange
+    APN auth protocol: unset
+    APN user: unset
+    APN password: unset
+    mbim-proxy: yes
+Querying subscriber ready status 'mbimcli -d /dev/cdc-wdm0 --query-subscriber-ready-status --no-close --device-open-proxy'...
+[/dev/cdc-wdm0] Subscriber ready status retrieved: Ready state: 'initialized' Subscriber ID: '208012500275708' SIM ICCID: '89330110410771226740' Ready info: 'unknown' Telephone numbers: (1) '+33788179336' [/dev/cdc-wdm0] Session not closed: TRID: '4'
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 4)
+Querying registration state 'mbimcli -d /dev/cdc-wdm0 --query-registration-state --no-open=4 --no-close --device-open-proxy'...
+[/dev/cdc-wdm0] Registration status: Network error: 'unknown' Register state: 'home' Register mode: 'automatic' Available data classes: 'umts, hsdpa, hsupa' Current cellular class: 'gsm' Provider ID: '20801' Provider name: 'Orange F' Roaming text: 'unknown' Registration flags: 'packet-service-automatic-attach' [/dev/cdc-wdm0] Session not closed: TRID: '6'
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 6)
+Attaching to packet service with 'mbimcli -d /dev/cdc-wdm0 --attach-packet-service --no-open=6 --no-close --device-open-proxy'...
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 8)
+Starting network with 'mbimcli -d /dev/cdc-wdm0 --connect=apn='orange' --no-open=8 --no-close --device-open-proxy'...
+Network started successfully
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 11)
+
+sudo ip link set wwan0 down
+sudo ip addr flush dev wwan0 
+sudo ip -6 addr flush dev wwan0 
+sudo ip link set wwan0 up
+sudo ip addr add 100.106.210.117/30 dev wwan0 broadcast +
+sudo ip route add default via 100.106.210.118 dev wwan0
+sudo ip link set mtu 1428 dev wwan0 
+sudo systemd-resolve -4 --interface=wwan0 --set-dns=172.20.2.39
+sudo systemd-resolve -4 --interface=wwan0 --set-dns=172.20.2.10
+
+#!/bin/bash
+#
+# mbim-set-ip script version 1.0
+# Modified mbimcli IPv4 IPv6 parsing script based on parts of project https://github.com/grandcentrix/thinkpad-x260-modem-scripts
+# Licensed under the Apache License, Version 2.0
+# Modified by Jörgen Storvist, Techship http://www.techship.com
+#
+# Further details in the Techship FAQ sections on using MBIM and setting correct modes in cellular modules:
+# https://techship.com/faq/how-to-set-up-a-simple-data-connection-over-the-mbim-interface-using-libmbim-and-driver-cdc-mbim-in-linux/
+#
+# Installation & Usage: 
+#
+# Verify that the cellular module is exposing the MBIM interface over the USB interface. 
+# Use mbimcli to check status for the cellular connection and enter the PIN code if necessary. 
+# Configure mbim-network.conf and place in /etc/ (example file included in the archive, check link bellow for details).
+# https://www.freedesktop.org/software/libmbim/man/latest/mbim-network.1.html
+# Start the mbim data connection with command:
+# mbim-network <MBIM-INTERFACE> start
+# Ensure execution of mbim-set-ip script with sufficient system priviledges
+# ./mbim-set-ip <MBIM-INTERFACE> <NETWORK-INTERFACE>
+#
+# Examples:
+# mbimcli -d /dev/cdc-wdm0 -p --query-device-caps
+# mbimcli -d /dev/cdc-wdm0 -p --enter-pin=1234
+# mbim-network /dev/cdc-wdm0 start
+# ./mbim-set-ip /dev/cdc-wdm0 wwan0
+#
+# You should now be able to ping over the data connection.
+# IP v4 ping: (only if IPv4 address was acquired from cellular module)
+# ping -4 -I wwan0 8.8.8.8
+# ping -4 -I wwan0 google.com
+
+# IP v6 ping: (only if IPv6 address was acquired from cellular module)
+# ping -6 -I wwan0 2001:4860:4860::8888
+# ping -6 -I wwan0 google.com
+#
+# The script relies on the linux tools mbimcli, ip, systemd-resolve
+# (Tested on libmbim 1.16.0 running on Ubuntu 18.10 cosmic (development) with kernel version 4.15.0)
+
+# Details on mbim-network and mbimcli
+# https://www.freedesktop.org/software/libmbim/man/latest/mbim-network.1.html
+# https://www.freedesktop.org/software/libmbim/man/latest/mbimcli.1.html
+
+function Usage() {
+  echo "$0 : <MBIM-INTERFACE> <NETWORK-INTERFACE>"  
+  echo "Exemple : $0 /dev/cdc-wdm2 wwp0s20u4i12"
+}
+[ $# -ne 2 ]&& { Usage ; exit 0 ; }
+
+ipv4_addresses=()
+ipv4_gateway=""
+ipv4_dns=()
+ipv4_mtu=""
+ipv6_addresses=()
+ipv6_gateway=""
+ipv6_dns=()
+ipv6_mtu=""
+
+#CONTROL-IFACE
+CONTROLDEV="$1" 
+#WWAN-IFACE
+DEV="$2" 
+
+echo "Requesting IPv4 and IPv6 information through mbimcli proxy:"
+sudo mbimcli -d $CONTROLDEV -p --query-ip-configuration
+IPDATA=$(sudo mbimcli -d $CONTROLDEV -p --query-ip-configuration=0)
+
+function parse_ip {
+	#      IP [0]: '10.134.203.177/30'
+	local line_re="IP \[([0-9]+)\]: '(.+)'"
+	local input=$1
+	if [[ $input =~ $line_re ]]; then
+		local ip_cnt=${BASH_REMATCH[1]}
+		local ip=${BASH_REMATCH[2]}
+	fi
+	echo "$ip"
+}
+
+function parse_gateway {
+	#    Gateway: '10.134.203.178'
+	local line_re="Gateway: '(.+)'"
+	local input=$1
+	if [[ $input =~ $line_re ]]; then
+		local gw=${BASH_REMATCH[1]}
+	fi
+	echo "$gw"
+}
+
+function parse_dns {
+	#      DNS [0]: '10.134.203.177/30'
+	local line_re="DNS \[([0-9]+)\]: '(.+)'"
+	local input=$1
+	if [[ $input =~ $line_re ]]; then
+		local dns_cnt=${BASH_REMATCH[1]}
+		local dns=${BASH_REMATCH[2]}
+	fi
+	echo "$dns"
+}
+
+function parse_mtu {
+	#        MTU: '1500'
+	local line_re="MTU: '([0-9]+)'"
+	local input=$1
+	if [[ $input =~ $line_re ]]; then
+		local mtu=${BASH_REMATCH[1]}
+	fi
+	echo "$mtu"
+}
+while read -r line || [[ -n "$line" ]] ; do
+	[ -z "$line" ] && continue
+	case "$line" in
+		*"IPv4 configuration available: 'none'"*)
+		       	state="start"
+		        continue
+			;;
+		*"IPv4 configuration available"*)
+			state="ipv4"
+			continue
+			;;
+		*"IPv6 configuration available: 'none'"*)
+		        state="start"parse_ip
+		        continue
+			;;
+		*"IPv6 configuration available"*)
+			state="ipv6"
+			continue
+			;;
+		*)
+			;;
+	esac
+	case "$state" in
+		"ipv4")
+
+			case "$line" in
+			*"IP"*)
+				row=$(parse_ip "$line")
+				ipv4_addresses+=("$row")
+			        continue
+				;;
+			*"Gateway"*)
+				row=$(parse_gateway "$line")
+				ipv4_gateway="$row"
+				continue
+				;;
+			*"DNS"*)
+				row=$(parse_dns "$line")
+				ipv4_dns+=("$row")
+				continue
+				;;
+			*"MTU"*)
+				row=$(parse_mtu "$line")
+				ipv4_mtu="$row"
+				continue
+				;;
+			*)
+				;;
+			esac
+			;;
+
+		"ipv6")
+			case "$line" in
+			*"IP"*)
+				row=$(parse_ip "$line")
+				ipv6_addresses+=("$row")
+			        continue
+				;;
+			*"Gateway"*)
+				row=$(parse_gateway "$line")
+				ipv6_gateway="$row"
+				continue
+				;;
+			*"DNS"*)
+				row=$(parse_dns "$line")
+				ipv6_dns+=("$row")
+				continue
+				;;
+			*"MTU"*)
+				row=$(parse_mtu "$line")
+				ipv6_mtu="$row"
+				continue
+				;;
+			*)
+				continue
+				;;
+			esac
+		;;
+	*)
+		continue
+	;;
+	esac
+done <<< "$IPDATA"
+
+execfile=$(mktemp)
+
+# correction stephane avril 2021 : commandes en sudo
+
+printf "sudo ip link set $DEV down\n" >> $execfile
+printf "sudo ip addr flush dev $DEV \n" >> $execfile
+printf "sudo ip -6 addr flush dev $DEV \n" >> $execfile
+printf "sudo ip link set $DEV up\n" >> $execfile
+
+if [[ "${#ipv4_addresses[@]}" > 0 ]]; then
+	printf "sudo ip addr add %s dev $DEV broadcast +\n" "${ipv4_addresses[@]}" >> $execfile
+	printf "sudo ip route add default via $ipv4_gateway dev $DEV\n" >> $execfile
+
+	if [ -n "$ipv4_mtu" ]; then
+		printf "sudo ip link set mtu $ipv4_mtu dev $DEV \n" >> $execfile
+	fi
+	if [[ "${#ipv4_dns[@]}" > 0 ]]; then
+		printf "sudo systemd-resolve -4 --interface=$DEV --set-dns=%s\n" "${ipv4_dns[@]}" >>$execfile
+	fi
+fi
+
+if [[ "${#ipv6_addresses[@]}" > 0 ]]; then
+	printf "sudo ip -6 addr add %s dev $DEV\n" "${ipv6_addresses[@]}" >> $execfile
+	printf "sudo ip -6 route add default via $ipv6_gateway dev $DEV\n" >> $execfile
+	if [ -n "$ipv6_mtu" ]; then
+		printf "sudo ip -6 link set mtu $ipv6_mtu dev $DEV\n" >> $execfile
+	fi
+	if [[ "${#ipv6_dns[@]}" > 0 ]]; then
+		printf "sudo systemd-resolve -6 --interface=$DEV --set-dns=%s\n" "${ipv6_dns[@]}" >>$execfile
+	fi
+fi
+echo "Applying the following network interface configurations:"
+echo "Contenu fichier execution : --------------"
+cat $execfile
+echo "------------------------------------------"
+bash $execfile
+#rm $execfile
+echo "Network interface configurations completed."
+
+#=======================================================================================================
+# FIN FICHIER - FIN FICHIER -  FIN FICHIER -  FIN FICHIER -  FIN FICHIER -  FIN FICHIER -  FIN FICHIER -
+#=======================================================================================================
+
+strokit-4:~/git/modem4g $ ping -4 -I wwan0 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) from 10.21.91.210 wwan0: 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=111 time=505 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=111 time=254 ms
+^C
+--- 8.8.8.8 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 254.165/379.794/505.423/125.629 ms
+

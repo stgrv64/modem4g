@@ -1,0 +1,6 @@
+[/dev/cdc-wdm0] Signal state:
+	          RSSI [0-31,99]: '99'
+	     Error rate [0-7,99]: '99'
+	Signal strength interval: '5'
+	          RSSI threshold: '2'
+	    Error rate threshold: 'unspecified'

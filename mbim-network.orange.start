@@ -1,0 +1,21 @@
+sudo: impossible de déterminer le nom de l'hôte astrokit-4.14.98-armv7l-rpi3a
+/usr/bin/mbim-network: 138: /usr/bin/mbim-network: [[: not found
+/usr/bin/mbim-network: 138: /usr/bin/mbim-network: [[: not found
+Loading profile at /etc/mbim-network.conf...
+    APN: orange
+    APN auth protocol: unset
+    APN user: unset
+    APN password: unset
+    mbim-proxy: yes
+Querying subscriber ready status 'mbimcli -d /dev/cdc-wdm0 --query-subscriber-ready-status --no-close --device-open-proxy'...
+[/dev/cdc-wdm0] Subscriber ready status retrieved: Ready state: 'initialized' Subscriber ID: '208012500275708' SIM ICCID: '89330110410771226740' Ready info: 'unknown' Telephone numbers: (1) '+33788179336' [/dev/cdc-wdm0] Session not closed: TRID: '4'
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 4)
+Querying registration state 'mbimcli -d /dev/cdc-wdm0 --query-registration-state --no-open=4 --no-close --device-open-proxy'...
+[/dev/cdc-wdm0] Registration status: Network error: 'unknown' Register state: 'home' Register mode: 'automatic' Available data classes: 'umts, hsdpa, hsupa' Current cellular class: 'gsm' Provider ID: '20801' Provider name: 'Orange F' Roaming text: 'unknown' Registration flags: 'packet-service-automatic-attach' [/dev/cdc-wdm0] Session not closed: TRID: '6'
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 6)
+Attaching to packet service with 'mbimcli -d /dev/cdc-wdm0 --attach-packet-service --no-open=6 --no-close --device-open-proxy'...
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 8)
+Starting network with 'mbimcli -d /dev/cdc-wdm0 --connect=apn='orange' --no-open=8 --no-close --device-open-proxy'...
+Network started successfully
+Saving state at /tmp/mbim-network-state-cdc-wdm0... (TRID: 11)
+

@@ -1,0 +1,455 @@
+=> JUSTE APRES UN REBOOT DU PC et BRANCHEMENT du MODEM
+=> ne pas entrer code PIN demandé a priori par ModemManager
+=> utiliser systematiquement option -p sous reserve d'avoir un "Transaction Time Out"
+   ou bien utiliser le PROXY mbim avec PROXY=yes dans le fichier /etc/mbim-network.conf
+=> mbim-network est UNIQUEMENT un script appelant des commandes mbim, DONC :
+  * il est possible d'utiliser les commandes reelement utililes sans passer
+    par ce script 
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 --query-signal-state
+[/dev/cdc-wdm0] Signal state:
+	          RSSI [0-31,99]: '99'
+	     Error rate [0-7,99]: '99'
+	Signal strength interval: '5'
+	          RSSI threshold: '2'
+	    Error rate threshold: 'unspecified'
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-radio-state 
+[/dev/cdc-wdm0] Radio state retrieved:
+	     Hardware radio state: 'on'
+	     Software radio state: 'on'
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 --query-pin-state
+error: operation failed: Transaction timed out
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 --query-pin-state
+[/dev/cdc-wdm0] PIN info:
+	         PIN state: 'locked'
+	          PIN type: 'pin1'
+	Remaining attempts: '3'
+
+=> OPTION -p permet d'aller plus vite ou meme de ne pas planter (utilisation PROXY mbim)
+
+=> commandes de prises d'informations et de diagnostic
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-device-caps 
+[/dev/cdc-wdm0] Device capabilities retrieved:
+	      Device type: 'remote'
+	   Cellular class: 'gsm'
+	      Voice class: 'no-voice'
+	        SIM class: 'removable'
+	       Data class: 'umts, hsdpa, hsupa, lte'
+	         SMS caps: 'pdu-receive, pdu-send'
+	        Ctrl caps: 'reg-manual'
+	     Max sessions: '8'
+	Custom data class: 'unknown'
+	        Device ID: '354479085366977'
+	    Firmware info: 'SWI9X30C_02.24.05.06'
+	    Hardware info: 'EM7455B'
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-device-services 
+[/dev/cdc-wdm0] Device services retrieved:
+	Max DSS sessions: '0'
+	        Services: (13)
+
+		          Service: 'basic-connect'
+		             UUID: [a289cc33-bcbb-8b4f-b6b0-133ec2aae6df]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: device-caps (1),
+		                   subscriber-ready-status (2),
+		                   radio-state (3),
+		                   pin (4),
+		                   pin-list (5),
+		                   home-provider (6),
+		                   preferred-providers (7),
+		                   visible-providers (8),
+		                   register-state (9),
+		                   packet-service (10),
+		                   signal-state (11),
+		                   connect (12),
+		                   provisioned-contexts (13),
+		                   ip-configuration (15),
+		                   device-services (16),
+		                   device-service-subscribe-list (19),
+		                   packet-statistics (20),
+		                   network-idle-hint (21),
+		                   emergency-mode (22),
+		                   ip-packet-filters (23)
+
+		          Service: 'sms'
+		             UUID: [533fbeeb-14fe-4467-9f90-33a223e56c3f]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: configuration (1),
+		                   read (2),
+		                   send (3),
+		                   delete (4),
+		                   message-store-status (5)
+
+		          Service: 'ussd'
+		             UUID: [e550a0c8-5e82-479e-82f7-10abf4c3351f]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: ussd (1)
+
+		          Service: 'phonebook'
+		             UUID: [4bf38476-1e6a-41db-b1d8-bed289c25bdb]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: configuration (1),
+		                   read (2),
+		                   delete (3),
+		                   write (4)
+
+		          Service: 'stk'
+		             UUID: [d8f20131-fcb5-4e17-8602-d6ed3816164c]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: pac (1),
+		                   terminal-response (2),
+		                   envelope (3)
+
+		          Service: 'auth'
+		             UUID: [1d2b5ff7-0aa1-48b2-aa52-50f15767174e]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: aka (1),
+		                   sim (3)
+
+		          Service: 'qmi'
+		             UUID: [d1a30bc2-f97a-6e43-bf65-c7e24fb0f0d3]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: msg (1)
+
+		          Service: 'unknown'
+		             UUID: [8b569648-628d-4653-9b9f-1025404424e1]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: 1, 2, 3
+
+		          Service: 'ms-host-shutdown'
+		             UUID: [883b7c26-985f-43fa-9804-27d7fb80959c]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: notify (1)
+
+		          Service: 'unknown'
+		             UUID: [2d0c12c9-0e6a-495a-915c-8d174fe5d63c]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: 1, 2
+
+		          Service: 'ms-firmware-id'
+		             UUID: [e9f7dea2-feaf-4009-93ce-90a3694103b6]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: get (1)
+
+		          Service: 'atds'
+		             UUID: [5967bdcc-7fd2-49a2-9f5c-b2e70e527db3]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: signal (1),
+		                   location (2),
+		                   operators (3),
+		                   rat (4),
+		                   register-state (9),
+		                   unknown (10)
+
+		          Service: 'unknown'
+		             UUID: [6427015f-579d-48f5-8c54-f43ed1e76f83]:
+		      DSS payload: 0
+		Max DSS instances: 0
+		             CIDs: 1, 2, 3
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-visible-providers 
+error: operation failed: NotInitialized
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-visible-providers 
+error: operation failed: NotInitialized
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --enter-pin=7320
+[/dev/cdc-wdm0] PIN operation successful
+
+[/dev/cdc-wdm0] PIN info:
+	         PIN state: 'locked'
+	          PIN type: 'pin2'wwp0s20u4i12
+	Remaining attempts: '3'
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-visible-providers 
+[/dev/cdc-wdm0] Visible providers (4):
+	Provider [0]:
+		    Provider ID: '20810'
+		  Provider name: 'F SFR'
+		          State: 'home, preferred, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [1]:
+		    Provider ID: '20815'
+		  Provider name: 'Free'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [2]:
+		    Provider ID: '20801'
+		  Provider name: 'Orange F'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [3]:
+		    Provider ID: '20820'
+		  Provider name: 'F-Bouygues Telecom'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+
+=> conclusion :
+  * certaines requetes necessitent l'entree du code PIN
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-home-provider 
+[/dev/cdc-wdm0] Home provider:
+	   Provider ID: '20810'
+	 Provider name: 'F SFR'
+	         State: 'home'
+	Cellular class: 'gsm'
+	          RSSI: '99'
+	    Error rate: '99'
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-registration-state
+[/dev/cdc-wdm0] Registration status:
+	         Network error: 'unknown'
+	        Register state: 'home'
+	         Register mode: 'automatic'
+	Available data classes: 'umts, hsdpa, hsupa'
+	Current cellular class: 'gsm'
+	           Provider ID: '20810'
+	         Provider name: 'F SFR'
+	          Roaming text: 'unknown'
+	    Registration flags: 'packet-service-automatic-attach'
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-subscriber-ready-status 
+[/dev/cdc-wdm0] Subscriber ready status retrieved:
+	      Ready state: 'initialized'
+	    Subscriber ID: '208101089036411'
+	        SIM ICCID: '89331010181574461454'
+	       Ready info: 'none'
+	Telephone numbers: (3) ''
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --atds-query-location
+[/dev/cdc-wdm0] Cell location retrieved:
+	       LAC: 6b74
+	       TAC: 0000
+	   Cell ID: a0a6f9c
+
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --atds-query-signal 
+[/dev/cdc-wdm0] Signal info retrieved:
+	      RSSI: unknown
+	       BER: unknown
+	      RSCP: -99 dBm
+	     Ec/No: -10,00 dBm
+	      RSRQ: unknown
+	      RSRP: unknown
+	     RSSNR: unknown
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --attach-packet-service
+[/dev/cdc-wdm0] Successfully attached to packet service
+
+[/dev/cdc-wdm0] Packet service status:
+	         Network error: 'unknown'
+	  Packet service state: 'attached'
+	Available data classes: 'hsdpa, hsupa'
+	          Uplink speed: '5742000 bps'
+	        Downlink speed: '42200000 bps'
+
+
+=> on substitue alors les commandes mbim-network start par les commandes mbimcli
+=> notamment la derniere commande 
+
+stef@dell00:~/git/modem4g$ sudo mbimcli -d /dev/cdc-wdm0 -p --connect=apn='sl2sfr'
+[/dev/cdc-wdm0] Successfully connected
+
+[/dev/cdc-wdm0] Connection status:wwp0s20u4i12
+	      Session ID: '0'
+	Activation state: 'activated'
+	Voice call state: 'none'
+	         IP type: 'ipv4'
+	    Context type: 'internet'
+	   Network error: 'pdp-type-ipv4-only-allowed'
+
+[/dev/cdc-wdm0] IPv4 configuration available: 'address, gateway, dns, mtu'
+     IP [0]: '100.108.117.133/30'   # susceptible de changer
+    Gateway: '100.108.117.134'      # susceptible de changer
+    DNS [0]: '172.20.2.39'
+    DNS [1]: '172.20.2.10'
+        MTU: '1428'
+
+[/dev/cdc-wdm0] IPv6 configuration available: 'none'
+
+
+stef@dell00:~/git/modem4g$ networkctl list 
+WARNING: systemd-networkd is not running, output will be incomplete.
+
+IDX LINK             TYPE               OPERATIONAL SETUP     
+  1 lo               loopback           n/a         unmanaged 
+  2 enp3s0f1         ether              n/a         unmanaged 
+  3 wlp2s0           wlan               n/a         unmanaged 
+  4 wwp0s20u4i12     wwan               n/a         unmanaged 
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm0 -p --query-signal-state
+[/dev/cdc-wdm0] Signal state:
+	          RSSI [0-31,99]: '4'
+	     Error rate [0-7,99]: '99'
+	Signal strength interval: '5'
+	          RSSI threshold: '2'
+	    Error rate threshold: 'unspecified'
+
+
+=> on recommence l'operation et on effectue les reglages de l'interfaces manuellement
+
+ 2133  sudo ip link set dev wwp0s20u4i12 up
+ 2134  sudo ip addr add 100.106.210.117/30 dev wwp0s20u4i12
+ 2135  sudo ip route add default via 100.106.210.118 dev wwp0s20u4i12
+
+=> on constate alors que des paquets transitent
+
+stef@dell00:~/git/modem4g$ ifconfig wwp0s20u4i12
+wwp0s20u4i12: flags=4291<UP,BROADCAST,RUNNING,NOARP,MULTICAST>  mtu 1500
+        inet 100.106.210.117  netmask 255.255.255.252  broadcast 0.0.0.0
+        inet6 fe80::28d6:edff:fe26:9d36  prefixlen 64  scopeid 0x20<link>
+        ether 2a:d6:ed:26:9d:36  txqueuelen 1000  (Ethernet)
+        RX packets 494  bytes 203745 (203.7 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 944  bytes 167243 (167.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+=> on verifie que on ping un serveur 8.8.8.8 apres arret de toutes les autres interfaces
+=> les deux interfaces peuvent cohabiter 
+
+stef@dell00:~/git/modem4g$ ping -4 -I wwp0s20u4i12 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) from 100.106.210.117 wwp0s20u4i12: 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=116 time=671 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=116 time=311 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=116 time=250 ms
+...
+
+=> le trafic passe bien
+=> on note le DNS d'un site en particulier (par exemple mon site http://www.astrokit.fr/ )
+
+stef@dell00:~/git/modem4g$ ifconfig wlp2s0
+wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.43.181  netmask 255.255.255.0  broadcast 192.168.43.255
+        inet6 fe80::22c1:22a9:1def:b080  prefixlen 64  scopeid 0x20<link>
+        ether 0c:8b:fd:ba:46:f9  txqueuelen 1000  (Ethernet)
+        RX packets 26896  bytes 16675174 (16.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 23269  bytes 5989398 (5.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+stef@dell00:~/git/modem4g$ nslookup www.astrokit.fr
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+www.astrokit.fr	canonical name = astrokit.fr.
+Name:	astrokit.fr
+Address: 213.186.33.40
+Name:	astrokit.fr
+Address: 64:ff9b::d5ba:2128
+
+=> astrokit = 213.186.33.40
+
+=> on coupe a nouveau l'interface wlan et on ping au travers de l'interface wwan
+
+stef@dell00:~/git/modem4g$ ifdown wlp2s0
+
+  ifdown: you must be root to run this command.
+
+stef@dell00:~/git/modem4g$ sudo ifdown wlp2s0
+
+stef@dell00:~/git/modem4g$ ifconfig wlp2s0
+wlp2s0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 0c:8b:fd:ba:46:f9  txqueuelen 1000  (Ethernet)
+        RX packets 26948  bytes 16680945 (16.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 23318  bytes 5995381 (5.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+=> il manque la resolution de nom
+=> on effectue les commandes suivantes grace au paquet systemd qui fournit systemd-resolve (systemd)
+
+sudo ip link set wwp0s20u4i12 down
+sudo ip addr flush dev wwp0s20u4i12 
+sudo ip -6 addr flush dev wwp0s20u4i12 
+sudo ip link set wwp0s20u4i12 up
+sudo ip addr add 100.106.210.117/30 dev wwp0s20u4i12 broadcast +
+sudo ip route add default via 100.106.210.118 dev wwp0s20u4i12
+sudo ip link set mtu 1428 dev wwp0s20u4i12 
+sudo systemd-resolve -4 --interface=wwp0s20u4i12 --set-dns=172.20.2.39
+sudo systemd-resolve -4 --interface=wwp0s20u4i12 --set-dns=172.20.2.10
+
+=> si notre OS est en systemd, on a acces a cette commande
+
+stef@dell00:~/git/modem4g$ which systemd-resolve
+/usr/bin/systemd-resolve
+
+stef@dell00:~/git/modem4g$ dpkg -S /usr/bin/systemd-resolve
+systemd: /usr/bin/systemd-resolve
+
+on peut alors pinguer google 
+
+stef@dell00:~/git/modem4g$ ping -4 -I wwp0s20u4i12 www.google.com
+PING www.google.com (216.58.213.68) from 100.106.210.117 wwp0s20u4i12: 56(84) bytes of data.
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=1 ttl=115 time=408 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=2 ttl=115 time=88.5 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=3 ttl=115 time=88.8 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=4 ttl=115 time=84.9 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=5 ttl=115 time=83.9 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=6 ttl=115 time=83.0 ms
+^C
+--- www.google.com ping statistics ---
+6 packets transmitted, 6 received, 0% packet loss, time 5005ms
+rtt min/avg/max/mdev = 83.081/139.687/408.711/120.331 ms
+
+=> on verifie en ligne de commande au travers d'une connexion http l'acces au web via un wget par exemple 
+
+stef@dell00:~/git/modem4g$ wget http://www.astrokit.fr
+--2021-04-15 16:09:33--  http://www.astrokit.fr/
+Résolution de www.astrokit.fr (www.astrokit.fr)… 213.186.33.40
+Connexion à www.astrokit.fr (www.astrokit.fr)|213.186.33.40|:80… connecté.
+requête HTTP transmise, en attente de la réponse… 302 Moved Temporarily
+Emplacement : http://www.astrokit.fr/drupal-7.38 [suivant]
+--2021-04-15 16:09:35--  http://www.astrokit.fr/drupal-7.38
+Réutilisation de la connexion existante à www.astrokit.fr:80.
+requête HTTP transmise, en attente de la réponse… 301 Moved Permanently
+Emplacement : http://www.astrokit.fr/drupal-7.38/ [suivant]
+--2021-04-15 16:09:36--  http://www.astrokit.fr/drupal-7.38/
+Réutilisation de la connexion existante à www.astrokit.fr:80.
+requête HTTP transmise, en attente de la réponse… 200 OK
+Taille : non indiqué [text/html]
+Enregistre : «index.html»
+
+index.html                                      [ <=>                                                                                     ]  11,28K  --.-KB/s    ds 0,03s   
+
+2021-04-15 16:09:36 (326 KB/s) - «index.html» enregistré [11546]
+
+=> OK
+
+Cette procedure est a reproduire cote target
+
+* d'abord sur une raspbian
+* ensuite sur la zynq en corrigeant les points bloquants
+
+
+
+
+
+
+
+

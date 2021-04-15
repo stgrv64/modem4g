@@ -1,0 +1,22 @@
+[/dev/cdc-wdm0] Visible providers (3):
+	Provider [0]:
+		    Provider ID: '20801'
+		  Provider Name: 'Orange F'
+		          State: 'home, preferred, visible, registered'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [1]:
+		    Provider ID: '20815'
+		  Provider Name: 'Free'
+		          State: 'visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [2]:
+		    Provider ID: '20820'
+		  Provider Name: 'F-Bouygues Telecom'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'

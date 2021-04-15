@@ -1,0 +1,8 @@
+[/dev/cdc-wdm0] Successfully attached to packet service
+
+[/dev/cdc-wdm0] Packet service status:
+	         Network error: 'unknown'
+	  Packet service state: 'attached'
+	Available data classes: 'hsdpa, hsupa'
+	          Uplink speed: '5742000 bps'
+	        Downlink speed: '42200000 bps'

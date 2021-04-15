@@ -1,0 +1,22 @@
+[/dev/cdc-wdm0] Successfully connected
+
+[/dev/cdc-wdm0] Connection status:
+	      Session ID: '0'
+	Activation state: 'activated'
+	Voice call state: 'none'
+	         IP type: 'ipv4v6'
+	    Context type: 'internet'
+	   Network error: 'unknown'
+
+[/dev/cdc-wdm0] IPv4 configuration available: 'address, gateway, dns, mtu'
+     IP [0]: '10.240.92.17/30'
+    Gateway: '10.240.92.18'
+    DNS [0]: '192.168.10.110'
+        MTU: '1428'
+
+[/dev/cdc-wdm0] IPv6 configuration available: 'address, gateway, dns, mtu'
+     IP [0]: '2a01:cb1a:70:51d:218f:53a4:50c4:3953/64'
+    Gateway: '2a01:cb1a:70:51d:51d0:bf31:ef28:6e88'
+    DNS [0]: '2a01:cd00:7fff:0:192:168:10:110'
+        MTU: '1428'
+
