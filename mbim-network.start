@@ -40,4 +40,38 @@ stef@dell00:~/git/modem$ ip link
 5: wwp0s20u4i12: <BROADCAST,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 2a:d6:ed:26:9d:36 brd ff:ff:ff:ff:ff:ff
 
+=> SCRIPT de SETUP IP
+
+https://techship.com/downloads/linux-mbim-helper-script-for-configuring-ip-connection-details-to-network-interface-using-mbimcli-v10/
+
+sinon avec mbim : 
+
+attention !!! il faut conserver le TRID renvoyé par mbim-network .. (non documenté )
+
+...
+Attaching to packet service with 'mbimcli -d /dev/cdc-wdm2 --attach-packet-service --no-open=4 --no-close '...
+Saving state at /tmp/mbim-network-state-cdc-wdm2... (TRID: 5)
+Starting network with 'mbimcli -d /dev/cdc-wdm2 --connect=apn='sl2sfr' --no-open=5 --no-close '...
+Network started successfully
+Saving state at /tmp/mbim-network-state-cdc-wdm2... (TRID: 7)
+
+stef@dell00:~/git/modem$ sudo mbimcli -d /dev/cdc-wdm2 --no-open=7 --no-close --query-ip-configuration
+
+[/dev/cdc-wdm2] IPv4 configuration available: 'address, gateway, dns, mtu'
+     IP [0]: '100.121.50.216/28'
+    Gateway: '100.121.50.217'
+    DNS [0]: '172.20.2.39'
+    DNS [1]: '172.20.2.10'
+        MTU: '1428'
+
+[/dev/cdc-wdm2] IPv6 configuration available: 'none'
+[/dev/cdc-wdm2] Session not closed:
+	    TRID: '8'
+
+
+
+
+
+
+
 

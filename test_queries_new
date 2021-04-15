@@ -1,0 +1,57 @@
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-visible-providers 
+error: operation failed: NotInitialized
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 --en
+--enable-pin=  --enter-pin=   --enter-puk=   
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 --en
+--enable-pin=  --enter-pin=   --enter-puk=   
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --enter-pin=7320
+[/dev/cdc-wdm2] PIN operation successful
+
+[/dev/cdc-wdm2] PIN info:
+	         PIN state: 'locked'
+	          PIN type: 'pin2'
+	Remaining attempts: '3'
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-visible-providers 
+[/dev/cdc-wdm2] Visible providers (4):
+	Provider [0]:
+		    Provider ID: '20810'
+		  Provider name: 'F SFR'
+		          State: 'home, preferred, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [1]:
+		    Provider ID: '20815'
+		  Provider name: 'Free'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [2]:
+		    Provider ID: '20801'
+		  Provider name: 'Orange F'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+	Provider [3]:
+		    Provider ID: '20820'
+		  Provider name: 'F-Bouygues Telecom'
+		          State: 'forbidden, visible'
+		 Cellular class: 'gsm'
+		           RSSI: '99'
+		     Error rate: '99'
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-home-provider 
+[/dev/cdc-wdm2] Home provider:
+	   Provider ID: '20810'
+	 Provider name: 'F SFR'
+	         State: 'home'
+	Cellular class: 'gsm'
+	          RSSI: '99'
+	    Error rate: '99'
+
+
+conclusion :
+
+ - certaines requetes necessitent l'entree du code PIN
