@@ -1,0 +1,37 @@
+ 1997  vi /etc/mbim-network.conf 
+ 2004  cat mbim-network.start
+ 2006  history | grep mbim
+ 2009  cat * | grep mbim
+ 2013  sudo mbim --device=/dev/cdc-wdm2 --query-signal-state
+ 2014  sudo mbimcli --device=/dev/cdc-wdm2 --query-signal-state
+ 2015  sudo mbimcli --device=/dev/cdc-wdm2 --query-pin-state
+ 2016  sudo mbimcli --device=/dev/cdc-wdm2 --query-signal-state
+ 2017  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-signal-state
+ 2018  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-device-services 
+ 2019  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-device-caps 
+ 2020  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-signal-state 
+ 2021  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-radio-state 
+ 2022  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-visible-providers 
+ 2023  sudo mbimcli --device=/dev/cdc-wdm2 -p --enter-pin=7320
+ 2024  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-visible-providers 
+ 2025  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-home-provider 
+ 2026  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-registration-state
+ 2027  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-subscriber-ready-status 
+ 2028  sudo mbimcli --device=/dev/cdc-wdm2 -p --atds-query-location
+ 2029  sudo mbimcli --device=/dev/cdc-wdm2 -p --atds-query-signal 
+ 2030  sudo mbimcli --device=/dev/cdc-wdm2 -p --attach-packet-service
+ 2031  sudo mbimcli --help-basic-connect
+ 2032  sudo mbim-network /dev/cdc-wdm2 start
+ 2033  mbimcli -d /dev/cdc-wdm2 -p --connect=apn='sl2sfr'
+ 2034  sudo mbimcli -d /dev/cdc-wdm2 -p --connect=apn='sl2sfr'
+ 2037  git commit -m "remplacement mbim-network par commandes mbimcli"
+ 2043  man mbimcli 
+ 2044  man mbimcli > man.mbimcli
+ 2046  cat man.mbimcli 
+ 2047  man mbim-network 
+ 2048  man mbim-network > man.mbim-network
+ 2051  git commit -m "ajout des manuels mbimcli et mbim-network"
+ 2055  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-signal-state
+ 2057  sudo mbimcli --device=/dev/cdc-wdm2 -p --query-signal-state
+ 2073  history | grep mbim
+ 2074  history | grep mbim > history.mbim

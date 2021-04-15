@@ -69,6 +69,38 @@ stef@dell00:~/git/modem$ sudo mbimcli -d /dev/cdc-wdm2 --no-open=7 --no-close --
 	    TRID: '8'
 
 
+=> recup IP/gateway/etc..
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-ip-configuration
+
+[/dev/cdc-wdm2] IPv4 configuration available: 'address, gateway, dns, mtu'
+     IP [0]: '100.87.244.161/30'
+    Gateway: '100.87.244.162'
+    DNS [0]: '172.20.2.39'
+    DNS [1]: '172.20.2.10'
+        MTU: '1428'
+[/dev/cdc-wdm2] IPv6 configuration available: 'none'
+
+=> plusieurs dizaines de minutes plus tard :
+
+stef@dell00:~/git/modem4g$ sudo /usr/bin/mbim-network /dev/cdc-wdm2 status
+[sudo] Mot de passe de stef : 
+Loading profile at /etc/mbim-network.conf...
+    APN: sl2sfr
+    APN auth protocol: unset
+    APN user: unset
+    APN password: unset
+    mbim-proxy: yes
+Loading previous state from /tmp/mbim-network-state-cdc-wdm2...
+    Previous Transaction ID: 11
+Getting status with 'mbimcli -d /dev/cdc-wdm2 --query-connection-state --no-close --no-open=11 --device-open-proxy'...
+Saving state at /tmp/mbim-network-state-cdc-wdm2... (TRID: 13)
+Status: activated
+
+=> la connexion est toujours active 
+=> recuperation de IP etc..
+
+
 
 
 

@@ -1,0 +1,72 @@
+stef@dell00:~/git/modem4g$ sudo ./swi_setusbcomp.pl
+Running in MBIM mode (driver=cdc_mbim)
+MBIM OPEN succeeded
+QMI msg '0x0021' returned status = 1
+MBIM QMI support verified
+supports 36 QMI subsystems:
+  0x00 (1.5)	'QMI_CTL'	- Control service
+  0x01 (1.67)	'QMI_WDS'	- Wireless data service
+  0x02 (1.14)	'QMI_DMS'	- Device management service
+  0x03 (1.25)	'QMI_NAS'	- Network access service
+  0x04 (1.6)	'QMI_QOS'	- Quality of service, err, service 
+  0x05 (1.10)	'QMI_WMS'	- Wireless messaging service
+  0x07 (1.3)	'QMI_AUTH'	- Authentication service
+  0x08 (1.2)	'QMI_AT'	- AT command processor service
+  0x09 (2.1)	'QMI_VOICE'	- Voice service
+  0x0a (2.24)	'QMI_CAT2'	- Card application toolkit service (new)
+  0x0b (1.45)	'QMI_UIM'	- UIM service
+  0x0c (1.4)	'QMI_PBM'	- Phonebook service
+  0x0f (1.0)	'QMI_TEST'	- Test service
+  0x10 (2.0)	'QMI_LOC'	- Location service 
+  0x11 (1.0)	'QMI_SAR'	- Specific absorption rate service
+  0x12 (1.0)	'QMI_IMSS'	- IMS settings service
+  0x17 (1.0)	'QMI_TS'	- Thermal sensors service
+  0x18 (1.0)	'QMI_TMD'	- Thermal mitigation device service
+  0x1a (1.16)	'QMI_WDA'	- Wireless data administrative service
+  0x1d (1.1)	'QMI_CSVT'	- Circuit switched videotelephony service
+  0x1f (1.0)	'QMI_IMSP'	- IMS presence service
+  0x21 (1.0)	'QMI_IMSA'	- IMS application service
+  0x22 (1.0)	'QMI_COEX'	- Coexistence service
+  0x24 (1.0)	'QMI_PDC'	- Persistent device configuration service
+  0x29 (1.0)	'QMI_RFRPE'	- RF radiated performance enhancement service
+  0x2a (1.0)	'QMI_DSD'	- Data system determination service
+  0x2b (1.0)	'QMI_SSCTL'	- Subsystem control service
+  0x2e (1.0)	'unknown'	- 
+  0x30 (1.0)	'unknown'	- 
+  0x31 (1.0)	'unknown'	- 
+  0x36 (1.0)	'unknown'	- 
+  0xe1 (1.0)	'QMI_RMS'	- Remote management service
+  0xf0 (1.0)	'unknown'	- 
+  0xf3 (1.0)	'unknown'	- 
+  0xf5 (1.0)	'unknown'	- 
+  0xf6 (1.0)	'unknown'	- 
+QMI msg '0x0022' returned status = 1
+Got QMI DMS client ID '3'
+QMI msg '0x555b' returned status = 1
+Current USB composition: 9
+USB compositions:
+   0 - HIP  DM    NMEA  AT    MDM1  MDM2  MDM3  MS      NOT SUPPORTED
+   1 - HIP  DM    NMEA  AT    MDM1  MS                  NOT SUPPORTED
+   2 - HIP  DM    NMEA  AT    NIC1  MS                  NOT SUPPORTED
+   3 - HIP  DM    NMEA  AT    MDM1  NIC1  MS            NOT SUPPORTED
+   4 - HIP  DM    NMEA  AT    NIC1  NIC2  NIC3  MS      NOT SUPPORTED
+   5 - HIP  DM    NMEA  AT    ECM1  MS                  NOT SUPPORTED
+   6 - DM   NMEA  AT    QMI                             SUPPORTED
+   7 - DM   NMEA  AT    RMNET1 RMNET2 RMNET3            NOT SUPPORTED
+   8 - DM   NMEA  AT    MBIM                            SUPPORTED
+*  9 - MBIM                                             SUPPORTED
+  10 - NMEA MBIM                                        NOT SUPPORTED
+  11 - DM   MBIM                                        NOT SUPPORTED
+  12 - DM   NMEA  MBIM                                  NOT SUPPORTED
+  13 - Config1: comp6    Config2: comp8                 NOT SUPPORTED
+  14 - Config1: comp6    Config2: comp9                 NOT SUPPORTED
+  15 - Config1: comp6    Config2: comp10                NOT SUPPORTED
+  16 - Config1: comp6    Config2: comp11                NOT SUPPORTED
+  17 - Config1: comp6    Config2: comp12                NOT SUPPORTED
+  18 - Config1: comp7    Config2: comp8                 NOT SUPPORTED
+  19 - Config1: comp7    Config2: comp9                 NOT SUPPORTED
+  20 - Config1: comp7    Config2: comp10                NOT SUPPORTED
+  21 - Config1: comp7    Config2: comp11                NOT SUPPORTED
+  22 - Config1: comp7    Config2: comp12                NOT SUPPORTED
+QMI msg '0x0023' returned status = 1
+

@@ -1,5 +1,10 @@
 => JUSTE APRES UN REBOOT DU PC et BRANCHEMENT du MODEM
 => ne pas entrer code PIN demandé a priori par ModemManager
+=> utiliser systematiquement option -p sous reserve d'avoir un "Transaction Time Out"
+   ou bien utiliser le PROXY mbim avec PROXY=yes dans le fichier /etc/mbim-network.conf
+=> mbim-network est UNIQUEMENT un script appelant des commandes mbim, DONC :
+  * il est possible d'utiliser les commandes reelement utililes sans passer
+    par ce script 
 
 stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 --query-signal-state
 [/dev/cdc-wdm2] Signal state:
@@ -23,7 +28,9 @@ stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 --query-pin-state
 	          PIN type: 'pin1'
 	Remaining attempts: '3'
 
-=> OPTION -p permet d'aller plus vite (TODO : pourquoi)
+=> OPTION -p permet d'aller plus vite ou meme de ne pas planter (utilisation PROXY mbim)
+
+=> commandes de prises d'informations et de diagnostic
 
 stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-device-caps 
 [/dev/cdc-wdm2] Device capabilities retrieved:
@@ -162,17 +169,15 @@ error: operation failed: NotInitialized
 
 stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-visible-providers 
 error: operation failed: NotInitialized
-stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 --en
---enable-pin=  --enter-pin=   --enter-puk=   
-stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 --en
---enable-pin=  --enter-pin=   --enter-puk=   
+
 stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --enter-pin=7320
 [/dev/cdc-wdm2] PIN operation successful
 
 [/dev/cdc-wdm2] PIN info:
 	         PIN state: 'locked'
-	          PIN type: 'pin2'
+	          PIN type: 'pin2'wwp0s20u4i12
 	Remaining attempts: '3'
+
 stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-visible-providers 
 [/dev/cdc-wdm2] Visible providers (4):
 	Provider [0]:
@@ -204,8 +209,8 @@ stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-visibl
 		           RSSI: '99'
 		     Error rate: '99'
 
-=> conclusion
-=> certaines requetes necessitent l'entree du code PIN
+=> conclusion :
+  * certaines requetes necessitent l'entree du code PIN
 
 stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-home-provider 
 [/dev/cdc-wdm2] Home provider:
@@ -270,7 +275,7 @@ stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --attach-packe
 stef@dell00:~/git/modem4g$ sudo mbimcli -d /dev/cdc-wdm2 -p --connect=apn='sl2sfr'
 [/dev/cdc-wdm2] Successfully connected
 
-[/dev/cdc-wdm2] Connection status:
+[/dev/cdc-wdm2] Connection status:wwp0s20u4i12
 	      Session ID: '0'
 	Activation state: 'activated'
 	Voice call state: 'none'
@@ -279,13 +284,172 @@ stef@dell00:~/git/modem4g$ sudo mbimcli -d /dev/cdc-wdm2 -p --connect=apn='sl2sf
 	   Network error: 'pdp-type-ipv4-only-allowed'
 
 [/dev/cdc-wdm2] IPv4 configuration available: 'address, gateway, dns, mtu'
-     IP [0]: '100.108.117.133/30'
-    Gateway: '100.108.117.134'
+     IP [0]: '100.108.117.133/30'   # susceptible de changer
+    Gateway: '100.108.117.134'      # susceptible de changer
     DNS [0]: '172.20.2.39'
     DNS [1]: '172.20.2.10'
         MTU: '1428'
 
 [/dev/cdc-wdm2] IPv6 configuration available: 'none'
+
+
+stef@dell00:~/git/modem4g$ networkctl list 
+WARNING: systemd-networkd is not running, output will be incomplete.
+
+IDX LINK             TYPE               OPERATIONAL SETUP     
+  1 lo               loopback           n/a         unmanaged 
+  2 enp3s0f1         ether              n/a         unmanaged 
+  3 wlp2s0           wlan               n/a         unmanaged 
+  4 wwp0s20u4i12     wwan               n/a         unmanaged 
+
+stef@dell00:~/git/modem4g$ sudo mbimcli --device=/dev/cdc-wdm2 -p --query-signal-state
+[/dev/cdc-wdm2] Signal state:
+	          RSSI [0-31,99]: '4'
+	     Error rate [0-7,99]: '99'
+	Signal strength interval: '5'
+	          RSSI threshold: '2'
+	    Error rate threshold: 'unspecified'
+
+
+=> on recommence l'operation et on effectue les reglages de l'interfaces manuellement
+
+ 2133  sudo ip link set dev wwp0s20u4i12 up
+ 2134  sudo ip addr add 100.106.210.117/30 dev wwp0s20u4i12
+ 2135  sudo ip route add default via 100.106.210.118 dev wwp0s20u4i12
+
+=> on constate alors que des paquets transitent
+
+stef@dell00:~/git/modem4g$ ifconfig wwp0s20u4i12
+wwp0s20u4i12: flags=4291<UP,BROADCAST,RUNNING,NOARP,MULTICAST>  mtu 1500
+        inet 100.106.210.117  netmask 255.255.255.252  broadcast 0.0.0.0
+        inet6 fe80::28d6:edff:fe26:9d36  prefixlen 64  scopeid 0x20<link>
+        ether 2a:d6:ed:26:9d:36  txqueuelen 1000  (Ethernet)
+        RX packets 494  bytes 203745 (203.7 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 944  bytes 167243 (167.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+=> on verifie que on ping un serveur 8.8.8.8 apres arret de toutes les autres interfaces
+=> les deux interfaces peuvent cohabiter 
+
+stef@dell00:~/git/modem4g$ ping -4 -I wwp0s20u4i12 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) from 100.106.210.117 wwp0s20u4i12: 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=116 time=671 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=116 time=311 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=116 time=250 ms
+...
+
+=> le trafic passe bien
+=> on note le DNS d'un site en particulier (par exemple mon site http://www.astrokit.fr/ )
+
+stef@dell00:~/git/modem4g$ ifconfig wlp2s0
+wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.43.181  netmask 255.255.255.0  broadcast 192.168.43.255
+        inet6 fe80::22c1:22a9:1def:b080  prefixlen 64  scopeid 0x20<link>
+        ether 0c:8b:fd:ba:46:f9  txqueuelen 1000  (Ethernet)
+        RX packets 26896  bytes 16675174 (16.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 23269  bytes 5989398 (5.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+stef@dell00:~/git/modem4g$ nslookup www.astrokit.fr
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+www.astrokit.fr	canonical name = astrokit.fr.
+Name:	astrokit.fr
+Address: 213.186.33.40
+Name:	astrokit.fr
+Address: 64:ff9b::d5ba:2128
+
+=> astrokit = 213.186.33.40
+
+=> on coupe a nouveau l'interface wlan et on ping au travers de l'interface wwan
+
+stef@dell00:~/git/modem4g$ ifdown wlp2s0
+
+  ifdown: you must be root to run this command.
+
+stef@dell00:~/git/modem4g$ sudo ifdown wlp2s0
+
+stef@dell00:~/git/modem4g$ ifconfig wlp2s0
+wlp2s0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 0c:8b:fd:ba:46:f9  txqueuelen 1000  (Ethernet)
+        RX packets 26948  bytes 16680945 (16.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 23318  bytes 5995381 (5.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+=> il manque la resolution de nom
+=> on effectue les commandes suivantes grace au paquet systemd qui fournit systemd-resolve (systemd)
+
+sudo ip link set wwp0s20u4i12 down
+sudo ip addr flush dev wwp0s20u4i12 
+sudo ip -6 addr flush dev wwp0s20u4i12 
+sudo ip link set wwp0s20u4i12 up
+sudo ip addr add 100.106.210.117/30 dev wwp0s20u4i12 broadcast +
+sudo ip route add default via 100.106.210.118 dev wwp0s20u4i12
+sudo ip link set mtu 1428 dev wwp0s20u4i12 
+sudo systemd-resolve -4 --interface=wwp0s20u4i12 --set-dns=172.20.2.39
+sudo systemd-resolve -4 --interface=wwp0s20u4i12 --set-dns=172.20.2.10
+
+=> si notre OS est en systemd, on a acces a cette commande
+
+stef@dell00:~/git/modem4g$ which systemd-resolve
+/usr/bin/systemd-resolve
+
+stef@dell00:~/git/modem4g$ dpkg -S /usr/bin/systemd-resolve
+systemd: /usr/bin/systemd-resolve
+
+on peut alors pinguer google 
+
+stef@dell00:~/git/modem4g$ ping -4 -I wwp0s20u4i12 www.google.com
+PING www.google.com (216.58.213.68) from 100.106.210.117 wwp0s20u4i12: 56(84) bytes of data.
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=1 ttl=115 time=408 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=2 ttl=115 time=88.5 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=3 ttl=115 time=88.8 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=4 ttl=115 time=84.9 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=5 ttl=115 time=83.9 ms
+64 bytes from lhr25s01-in-f68.1e100.net (216.58.213.68): icmp_seq=6 ttl=115 time=83.0 ms
+^C
+--- www.google.com ping statistics ---
+6 packets transmitted, 6 received, 0% packet loss, time 5005ms
+rtt min/avg/max/mdev = 83.081/139.687/408.711/120.331 ms
+
+=> on verifie en ligne de commande au travers d'une connexion http l'acces au web via un wget par exemple 
+
+stef@dell00:~/git/modem4g$ wget http://www.astrokit.fr
+--2021-04-15 16:09:33--  http://www.astrokit.fr/
+Résolution de www.astrokit.fr (www.astrokit.fr)… 213.186.33.40
+Connexion à www.astrokit.fr (www.astrokit.fr)|213.186.33.40|:80… connecté.
+requête HTTP transmise, en attente de la réponse… 302 Moved Temporarily
+Emplacement : http://www.astrokit.fr/drupal-7.38 [suivant]
+--2021-04-15 16:09:35--  http://www.astrokit.fr/drupal-7.38
+Réutilisation de la connexion existante à www.astrokit.fr:80.
+requête HTTP transmise, en attente de la réponse… 301 Moved Permanently
+Emplacement : http://www.astrokit.fr/drupal-7.38/ [suivant]
+--2021-04-15 16:09:36--  http://www.astrokit.fr/drupal-7.38/
+Réutilisation de la connexion existante à www.astrokit.fr:80.
+requête HTTP transmise, en attente de la réponse… 200 OK
+Taille : non indiqué [text/html]
+Enregistre : «index.html»
+
+index.html                                      [ <=>                                                                                     ]  11,28K  --.-KB/s    ds 0,03s   
+
+2021-04-15 16:09:36 (326 KB/s) - «index.html» enregistré [11546]
+
+=> OK
+
+Cette procedure est a reproduire cote target
+
+* d'abord sur une raspbian
+* ensuite sur la zynq en corrigeant les points bloquants
+
+
+
+
+
 
 
 
