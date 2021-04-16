@@ -1,0 +1,10 @@
+[/dev/cdc-wdm0] Registration status:
+	         Network error: 'unknown'
+	        Register state: 'home'
+	         Register mode: 'automatic'
+	Available data classes: 'umts, hsdpa, hsupa'
+	Current cellular class: 'gsm'
+	           Provider ID: '20801'
+	         Provider name: 'Orange F'
+	          Roaming text: 'unknown'
+	    Registration flags: 'packet-service-automatic-attach'

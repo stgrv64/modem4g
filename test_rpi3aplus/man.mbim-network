@@ -1,0 +1,70 @@
+MBIM-NETWORK(1)                                                               User Commands                                                              MBIM-NETWORK(1)
+
+NAME
+       mbim-network - Simple network management of MBIM devices
+
+SYNOPSIS
+       mbim-network [OPTIONS] [DEVICE] [COMMAND]
+
+DESCRIPTION
+       Simple network management of MBIM devices
+
+   Commands:
+       start  Start network connection
+
+       stop   Stop network connection
+
+       status Query network connection status
+
+OPTIONS
+       --profile=[PATH]
+              Use the profile in the specified path
+
+       --help, -h
+              Show help options
+
+       --version
+              Show version
+
+       Notes:
+
+              1) [DEVICE] is given as the full path to the cdc-wdm character device, e.g.:
+
+              /dev/cdc-wdm0
+
+              2)  The mbim-network script requires a profile to work. Unless explicitly specified with `--profile', the file is assumed to be available in the following
+              path:
+
+              /etc/mbim-network.conf
+
+              3) The APN to use should be configured in the profile, in the following way (e.g. assuming APN is called 'internet'):
+
+              APN=internet
+
+              4) Optional APN user/password strings may be given in the following way:
+
+              APN_USER=user APN_PASS=password
+
+              5) If APN user/password is specified, the authentication protocol to use (one of PAP, CHAP or MSCHAPV2) must also be specified in the following way:
+
+              APN_AUTH=protocol
+
+              6) If you want to instruct the mbim-network script to use the mbim-proxy setup, you can do so by configuring the following line in the profile:
+
+              PROXY=yes
+
+              7) Once the mbim-network script reports a successful connection you still need to run a DHCP client on the associated WWAN network interface.
+
+COPYRIGHT
+       Copyright © 2013-2018 Aleksander Morgado License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl-2.0.html>
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+       The full documentation for mbim-network is maintained as a Texinfo manual.  If the info and mbim-network programs are properly installed at your site,  the  com‐
+       mand
+
+              info mbim-network
+
+       should give you access to the complete manual.
+
+mbim-network 1.18.0                                                           January 2019                                                               MBIM-NETWORK(1)

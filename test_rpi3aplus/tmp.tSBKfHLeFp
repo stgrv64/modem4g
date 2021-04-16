@@ -1,0 +1,12 @@
+sudo ip link set wwan0 down
+sudo ip addr flush dev wwan0 
+sudo ip -6 addr flush dev wwan0 
+sudo ip link set wwan0 up
+sudo ip addr add 10.21.91.210/30 dev wwan0 broadcast +
+sudo ip route add default via 10.21.91.209 dev wwan0
+sudo ip link set mtu 1428 dev wwan0 
+sudo systemd-resolve -4 --interface=wwan0 --set-dns=192.168.10.110
+sudo ip -6 addr add 2a01:cb1a:28:35cf:5811:dbe5:4c2d:17a0/64 dev wwan0
+sudo ip -6 route add default via 2a01:cb1a:28:35cf:5c74:27e6:fc03:302c dev wwan0
+sudo ip -6 link set mtu 1428 dev wwan0
+sudo systemd-resolve -6 --interface=wwan0 --set-dns=2a01:cd00:7fff:0:192:168:10:110
